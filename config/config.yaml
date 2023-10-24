@@ -1,0 +1,52 @@
+config_name: 2023-09-18-X-SHiELD-simulations
+
+# Directories for storing output.
+# output_directory is for storing final products.
+# working_directory is for storing any temporary intermediates.
+# gcs_bucket is the root directory for any data uploaded to Google Cloud Storage.
+output_directory: /scratch/cimes/skclark/2023-09-18-PIRE-X-SHiELD-post-processing/processed
+working_directory: /scratch/cimes/skclark/2023-09-18-PIRE-X-SHiELD-post-processing/work
+gcs_bucket: gs://vcm-ml-raw-flexible-retention/2023-09-18-X-PIRE-SHiELD-simulations
+
+# Path to grid_spec for coarsening; note it is assumed that all datasets
+# for all the runs require the same resolution reference grid.
+grid_spec_stem: /scratch/gpfs/skclark/2023-09-15-X-SHiELD-grid-data/grid_spec_coarse
+
+# Coarsening factor to use for all output.
+coarsening_factor: 8
+
+# runs: a mapping from run names (for use in wildcards) to paths to run
+# directories and (optional) specific diagnostic tapes to post-process.
+# runs.  Note the symlinks were generated in misc/symlink_data.py; they are
+# meant to link together the runs in a continuous manner.
+runs:
+  control:
+    root: /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire
+    tapes:
+      - pire_atmos_dyn_plev_coarse_3h
+      - pire_atmos_phys_3h_coarse
+      - pire_atmos_static_coarse
+  plus-4K:
+    root:  /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire_PLUS_4K
+    tapes:
+      - pire_atmos_dyn_plev_coarse_3h
+      - pire_atmos_phys_3h_coarse
+      - pire_atmos_static_coarse
+  1270-ppmv-CO2:
+    root: /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire_CO2_1270ppmv
+    tapes:
+      - pire_atmos_dyn_plev_coarse_3h
+      - pire_atmos_phys_3h_coarse
+      - pire_atmos_static_coarse
+  plus-4K-1270-ppmv-CO2:
+    root: /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire_PLUS_4K_CO2_1270ppmv
+    tapes:
+      - pire_atmos_dyn_plev_coarse_3h
+      - pire_atmos_phys_3h_coarse
+      - pire_atmos_static_coarse
+
+# Number of ranks to partition combine jobs over.
+xpartition_ranks: 25
+
+# Target chunk size to autochunk along time and tile dimensions.
+target_chunk_size: 64Mi

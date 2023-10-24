@@ -1,0 +1,25 @@
+name: 2023-09-18-X-SHiELD-snakemake
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python==3.8.16
+  - cartopy==0.21.1
+  - crcmod==1.7
+  - ffmpeg==5.1.2
+  - gfortran==12.2.0
+  - google-cloud-sdk==437.0.1
+  - partd==1.3.0
+  - pyquery==2.0.0
+  - coverage==7.2.1
+  - pip==20.2.4
+  - setuptools==59.8.0
+  - snakemake==7.28.3
+  - pip:
+    - -c https://raw.githubusercontent.com/ai2cm/fv3net/c385103607eea718905846807295621e8ebc5033/constraints.txt
+    - -r https://raw.githubusercontent.com/ai2cm/fv3net/c385103607eea718905846807295621e8ebc5033/pip-requirements.txt
+    - git+https://github.com/ai2cm/fv3net.git@c385103607eea718905846807295621e8ebc5033#egg=vcm&subdirectory=external/vcm
+    - git+https://github.com/ai2cm/fv3net.git@c385103607eea718905846807295621e8ebc5033#egg=mappm&subdirectory=external/mappm
+    - git+https://github.com/NVIDIA/torch-harmonics.git@8826246cacf6c37b600cdd63fde210815ba238fd
+    - git+https://github.com/spencerkclark/fv3dataset.git@4dcd7ec9b8b3cbe2eac8d64d8a553eca97bb0270
