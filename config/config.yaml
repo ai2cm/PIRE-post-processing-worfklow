@@ -23,24 +23,28 @@ runs:
   control:
     root: /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire
     tapes:
+      - pire_atmos_dyn_3h_coarse_inst
       - pire_atmos_dyn_plev_coarse_3h
       - pire_atmos_phys_3h_coarse
       - pire_atmos_static_coarse
   plus-4K:
     root:  /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire_PLUS_4K
     tapes:
+      - pire_atmos_dyn_3h_coarse_inst
       - pire_atmos_dyn_plev_coarse_3h
       - pire_atmos_phys_3h_coarse
       - pire_atmos_static_coarse
   1270-ppmv-CO2:
     root: /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire_CO2_1270ppmv
     tapes:
+      - pire_atmos_dyn_3h_coarse_inst
       - pire_atmos_dyn_plev_coarse_3h
       - pire_atmos_phys_3h_coarse
       - pire_atmos_static_coarse
   plus-4K-1270-ppmv-CO2:
     root: /scratch/gpfs/skclark/2023-09-15-X-SHiELD-symlinks/20191020.00Z.C3072.L79x2_pire_PLUS_4K_CO2_1270ppmv
     tapes:
+      - pire_atmos_dyn_3h_coarse_inst
       - pire_atmos_dyn_plev_coarse_3h
       - pire_atmos_phys_3h_coarse
       - pire_atmos_static_coarse
