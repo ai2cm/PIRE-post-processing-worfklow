@@ -19,24 +19,16 @@ $ mamba env create --file envs/environment.yaml
 
 ## Processing the data
 
-The multi-year X-SHiELD simulations were run in two stages, and so the raw data
-exists in two places.  Before running the `snakemake` workflow it is therefore
-important to merge these datasets together through symbolic links.  This can be
-done by calling the included script:
-
-```
-$ conda run --name 2023-09-18-X-SHiELD-snakemake misc/symlink_dataset.py
-```
-
-To process the data, activate the environment from a `screen` session (this will
-take a while), and call the included top-level `submit.sh` bash script.  This
-script handles partitioning the work into a sequence of batch jobs, grouping
-tasks into single jobs where appropriate to prevent overwhelming the SLURM
-scheduler with many small jobs.
+To process the data, activate the environment from a `screen` session, and call
+the included top-level `submit.sh` bash script.  This script handles some
+initial data preparation / organization, as well as partitioning the work into a
+sequence of batch jobs, grouping tasks into single jobs where appropriate to
+prevent overwhelming the SLURM scheduler with many small jobs.
 
 ```
 $ screen
-$ conda run --name 2023-09-18-X-SHiELD-snakemake submit.sh
+$ conda activate 2023-09-18-X-SHiELD-snakemake
+$ bash submit.sh
 ```
 
 ## High-level overview of the workflow
@@ -57,7 +49,7 @@ learning workflow.  At a high level it does the following:
   This arrangement and naming of the restart files is exactly what is required
   for performing an fv3net nudged run.
 
-In total this workflow processes over 140 TB of restart files and 7.3 TB of
+In total this workflow processes over 140 TB of restart files and 7.6 TB of
 diagnostics (we have ignored the 3D diagnostics for now, though they too could
 be processed by this workflow).  By way of coarsening to C48 resolution, this
 data is reduced by a factor of 64 to a more manageable ~2 TB.

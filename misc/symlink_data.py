@@ -7,6 +7,8 @@ import logging
 import os
 
 from pathlib import Path
+from toolz import dissoc
+
 
 HISTORY = "history"
 RESTART = "restart"
@@ -82,6 +84,18 @@ def symlink(source, simulation, output_category, timestamp):
     logging.info(f"Creating a symlink from {source} to {destination}")
     os.symlink(source, destination)
 
+
+def get_restored_segments(segments):
+    rerun_segments = ["2019102000"]
+    first_unrestored = "2020022700"
+
+    restored_segments = []
+    for segment in sorted(segments):
+        if segment < first_unrestored and segment not in rerun_segments:
+            restored_segments.append(segment)
+
+    return restored_segments
+
     
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
@@ -89,6 +103,14 @@ if __name__ == "__main__":
     merged_links = {}
     for simulation in SIMULATIONS:
         merged_links[simulation] = merge(simulation)
+
+    # Remove restored diagnostic timestamps from plus 4K simulation, since
+    # they need to be handled in a special way.
+    plus_4K_history = merged_links["20191020.00Z.C3072.L79x2_pire_PLUS_4K"][HISTORY]
+    restored_plus_4K_segments = get_restored_segments(plus_4K_history.keys())
+    merged_links["20191020.00Z.C3072.L79x2_pire_PLUS_4K"][HISTORY] = dissoc(
+        plus_4K_history, *restored_plus_4K_segments
+    )
 
     for simulation, output_categories in merged_links.items():
         for output_category, links in output_categories.items():

@@ -3,9 +3,21 @@ set -e
 
 # conda environment: 2023-09-18-X-SHiELD-snakemake
 
+# The multi-year X-SHiELD simulations were run in two stages, and so the raw
+# data exists in two places.  Before running the snakemake workflow it is
+# therefore important to merge these datasets together through symbolic links.
+python misc/symlink_data.py
+
+# We must run some additional scripts to work around diagnostic data that needed
+# to be restored from ppan:/archive for the plus-4K simulation.  This data was
+# already run through mppnccombine, and therefore the mppnccombine steps for
+# just these segments can be skipped.  These scripts provide a crude way for
+# snakemake to recognize this.
+python misc/create_dummy_uncombined_plus_4K_data.py
+python misc/copy_plus_4K_diagnostics.py
+
 # Run this workflow in stages, since the graph will be large.  Also group
-# mppnccombine jobs within batch jobs since there will be a huge number
-# of them.
+# mppnccombine jobs within batch jobs since there will be a huge number of them.
 n_batches=64
 
 for batch in $(seq 1 ${n_batches})
